@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CraveAI - Recommendations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "inverse-primary": "#ffb4a5",
+                            "secondary-fixed-dim": "#ffb2ba",
+                            "primary-fixed": "#ffdad3",
+                            "surface-bright": "#fcf9f8",
+                            "on-primary": "#ffffff",
+                            "tertiary-fixed": "#ffe07c",
+                            "on-error": "#ffffff",
+                            "surface-container": "#f0eded",
+                            "secondary-container": "#de2656",
+                            "on-tertiary-fixed-variant": "#564500",
+                            "on-error-container": "#93000a",
+                            "tertiary-container": "#cca700",
+                            "on-tertiary-fixed": "#231b00",
+                            "background": "#fcf9f8",
+                            "on-primary-fixed": "#3e0400",
+                            "inverse-on-surface": "#f3f0ef",
+                            "on-background": "#1c1b1b",
+                            "inverse-surface": "#313030",
+                            "on-secondary": "#ffffff",
+                            "surface-variant": "#e5e2e1",
+                            "surface": "#fcf9f8",
+                            "outline": "#916f69",
+                            "on-primary-container": "#fffbff",
+                            "primary-fixed-dim": "#ffb4a5",
+                            "on-tertiary-container": "#4d3e00",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-low": "#f6f3f2",
+                            "tertiary": "#725c00",
+                            "on-primary-fixed-variant": "#8e1300",
+                            "on-secondary-container": "#fffbff",
+                            "surface-dim": "#dcd9d9",
+                            "surface-container-lowest": "#ffffff",
+                            "on-surface": "#1c1b1b",
+                            "secondary": "#b90040",
+                            "surface-tint": "#ba1c00",
+                            "on-secondary-fixed": "#400011",
+                            "on-surface-variant": "#5c403a",
+                            "on-secondary-fixed-variant": "#910031",
+                            "surface-container-high": "#eae7e7",
+                            "secondary-fixed": "#ffd9dc",
+                            "primary-container": "#dc3214",
+                            "error-container": "#ffdad6",
+                            "surface-container-highest": "#e5e2e1",
+                            "primary": "#b51c00",
+                            "error": "#ba1a1a",
+                            "outline-variant": "#e5bdb6",
+                            "tertiary-fixed-dim": "#ecc200"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "sm": "8px",
+                            "lg": "24px",
+                            "gutter": "16px",
+                            "md": "16px",
+                            "2xl": "64px",
+                            "xs": "4px",
+                            "xl": "40px",
+                            "base": "4px",
+                            "container-margin": "20px"
+                    },
+                    "fontFamily": {
+                            "body-lg": ["Inter"],
+                            "label-sm": ["Inter"],
+                            "headline-xl": ["Montserrat"],
+                            "label-md": ["Inter"],
+                            "headline-md": ["Montserrat"],
+                            "body-md": ["Inter"],
+                            "headline-lg-mobile": ["Montserrat"],
+                            "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                            "headline-xl": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ai-sparkle-bg {
+            background: linear-gradient(135deg, rgba(181, 28, 0, 0.05) 0%, rgba(220, 50, 20, 0.1) 100%);
+        }
+        .ai-border {
+            position: relative;
+        }
+        .ai-border::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #b51c00, #ffb4a5, #de2656);
+            z-index: -1;
+            border-radius: calc(0.75rem + 2px); /* xl + 2px */
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen pb-24 md:pb-8 pt-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm transition-transform">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+</div>
+<div class="text-headline-md font-headline-md font-bold text-primary">CraveAI</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a modern, stylish person in a softly lit, warm environment, reflecting a high-energy foodie persona. The lighting highlights their features, creating a welcoming and premium aesthetic suitable for a sleek app profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiQrAfP_LZAsjll1pJWcWlh9wJa_5vEplp6agSMT0nLLKjOhHksnG7cB8ztRrp_wkfwB4MG2LkhWTR5bTUkgGscNZrleoLZ-0UR9GxmeenjXxcmHBsfvtFnpZDR3NkoYi7pEN6SKeYdlOuY8vdQaH84SfDYqSHQOZhfFYidjXsTT1cwwKEWSb51CNNa1HYDcUrc54fTbMAN5YJIQWGgHJmHIpkoNzcXiTammgw0uP5LVfG4nDsbNKh"/>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-container-margin md:px-lg grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Header Section -->
+<div class="md:col-span-12 flex flex-col gap-sm mt-md">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile md:text-headline-lg md:font-headline-lg">Your Curated Craves</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">We handpicked these 3 spots to hit the perfect balance of spice, speed, and comfort for this rainy evening.</p>
+</div>
+<!-- Cards Container -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(181,28,0,0.08)] overflow-hidden flex flex-col ai-border z-10 group">
+<!-- Image Header -->
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Dragon Fire Sichuan Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A mouth-watering close-up of an authentic Sichuan Hot Pot bubbling with vibrant red chili oil, peppercorns, and fresh ingredients. The setting is a dim, moody, modern restaurant with warm atmospheric lighting highlighting the steam and rich textures of the food. Premium food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxVaZ-eJllzihiB852DlVS5SSYsIHjN-E8MDTVvKuac0Bds3Ae-TaQK9G2Kb8G1PQ6WbrO8TR1dt7Iykah1nQbApIFwy-uYZCZeSTTLRZDu22aIBtxd0kOgqe4fjEyBUbkEVhd0PSgfrVaZegt58qgqiY0ifg0CMGeftxxxG36lTvDpeVNRRk9EsthZTo5ISo4gvNcJXX4_0xAQoGgUzNYzKuyX_YM1UXlDSzOJ2xkJo3EsNZh_bfx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute top-sm right-sm bg-surface/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-md font-label-md text-on-surface">4.8</span>
+</div>
+</div>
+<!-- Content -->
+<div class="p-md flex flex-col flex-grow gap-md">
+<div>
+<h2 class="text-headline-md font-headline-md mb-xs">Dragon Fire Sichuan</h2>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-2">
+<span>Sichuan • Hot Pot</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>1.2 km away</span>
+</p>
+</div>
+<!-- AI Note -->
+<div class="ai-sparkle-bg border border-primary-fixed rounded-lg p-sm flex gap-sm items-start mt-auto">
+<span class="material-symbols-outlined text-primary mt-1" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<p class="text-label-md font-label-md text-on-surface-variant">Since it's raining and you wanted something spicy, we recommend their Sichuan Hot Pot—highly rated for quick delivery.</p>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-2 gap-sm mt-sm">
+<button class="bg-primary text-on-primary text-label-md font-label-md py-3 rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Order Now
+                        </button>
+<button class="border border-outline-variant text-primary text-label-md font-label-md py-3 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">restaurant_menu</span> View Menu
+                        </button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(181,28,0,0.08)] overflow-hidden flex flex-col group">
+<!-- Image Header -->
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Green Garden Bistro Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="An elegant, modern fusion dish presented on a dark ceramic plate, featuring a seared piece of protein with vibrant green herb oil and intricate garnishes. The lighting is soft and directional, creating a moody, upscale dining atmosphere typical of high-end bistro photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv8hFKyenhv30yQks1FuSUJOcIDI3CKD0P0EhT9xFNnD4upPfKKp-yNPpMngD5H56r0jOxeEI9VqblOQupW9DRbe3d6BTQD4iO4VXHFNgueuxx8KVS93yGrtQsuBUwT0bGOSOgZMAPyej5GUPJ_53icwvRIw_iGGqTLUpZIKtHdwLL8jcU2pAenEIFc3u8hiKBdFKMmjOewHa3NWpmXk-C8nwQwGw4QLnhlax7GbjAjTSKVJENYjh8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute top-sm right-sm bg-surface/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-md font-label-md text-on-surface">4.6</span>
+</div>
+</div>
+<!-- Content -->
+<div class="p-md flex flex-col flex-grow gap-md">
+<div>
+<h2 class="text-headline-md font-headline-md mb-xs">Green Garden Bistro</h2>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-2">
+<span>Asian Fusion • Healthy</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>2.5 km away</span>
+</p>
+</div>
+<!-- AI Note -->
+<div class="bg-surface-container border border-surface-dim rounded-lg p-sm flex gap-sm items-start mt-auto">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">insights</span>
+<p class="text-label-md font-label-md text-on-surface-variant">A lighter, warming alternative with excellent spicy basil noodles. Perfect for a cozy night in without feeling heavy.</p>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-2 gap-sm mt-sm">
+<button class="bg-primary text-on-primary text-label-md font-label-md py-3 rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Order Now
+                        </button>
+<button class="border border-outline-variant text-primary text-label-md font-label-md py-3 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">restaurant_menu</span> View Menu
+                        </button>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(181,28,0,0.08)] overflow-hidden flex flex-col group">
+<!-- Image Header -->
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Seoul Comfort Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A steaming bowl of rich, deeply colored Korean spicy tofu stew (Soondubu Jjigae) served in a traditional black stone pot. The broth is bubbling, garnished with fresh scallions and a raw egg cracking into it. Warm, inviting lighting emphasizing comfort food on a rainy day." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATEKP3zJFwJKjdPXYncRz_VwkUo1B-Si__fMrKyXHvcGoMdlh01Svy33teDUlH9ObkwTh0TrIqg2lIPvdzzP-h3pOo6wk9ZRX-CqFCoER637HZBirUWi1HsZsKXdQF-XVpT0uGOP30-J19Vc9r4ZGy-_T0ea4zBC3hWd1tp0DxQVfdgPej6s7RUzensVgyHvya7sG2v5ERnQg2OmrW4Zmyax9niSYdGiyMvtnB_Vg0Jyc2s5vHHSkq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute top-sm right-sm bg-surface/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-md font-label-md text-on-surface">4.9</span>
+</div>
+</div>
+<!-- Content -->
+<div class="p-md flex flex-col flex-grow gap-md">
+<div>
+<h2 class="text-headline-md font-headline-md mb-xs">Seoul Comfort</h2>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-2">
+<span>Korean • Soups</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>3.1 km away</span>
+</p>
+</div>
+<!-- AI Note -->
+<div class="bg-surface-container border border-surface-dim rounded-lg p-sm flex gap-sm items-start mt-auto">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">insights</span>
+<p class="text-label-md font-label-md text-on-surface-variant">The ultimate rainy weather comfort. Their spicy Kimchi Jjigae arrives piping hot and consistently earns 5 stars for delivery quality.</p>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-2 gap-sm mt-sm">
+<button class="bg-primary text-on-primary text-label-md font-label-md py-3 rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span> Order Now
+                        </button>
+<button class="border border-outline-variant text-primary text-label-md font-label-md py-3 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">restaurant_menu</span> View Menu
+                        </button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 backdrop-blur-xl shadow-[0px_-4px_20px_rgba(181,28,0,0.08)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary bg-primary-fixed/20 rounded-full px-4 py-1 scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="text-label-sm font-label-sm mt-1">Concierge</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="text-label-sm font-label-sm mt-1">Discovery</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
