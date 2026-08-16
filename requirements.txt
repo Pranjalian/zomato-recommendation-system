@@ -7,3 +7,4 @@ sentence-transformers>=2.2.0
 pandas>=2.0.0
 fsspec
 huggingface-hub
+groq>=0.9.0

@@ -5,7 +5,7 @@ from typing import List, Dict, Any
 # Ensure the root project directory is in the PYTHONPATH
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from embeddings.embedder import GeminiEmbedder
+from embeddings.embedder import Embedder
 from embeddings.vector_store import VectorStore
 from database.catalog_db import CatalogDB
 
@@ -15,7 +15,7 @@ class RetrievalEngine:
         # CatalogDB requires the path to be correct relative to where it's called
         db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'database', 'zomato_catalog.db')
         self.catalog_db = catalog_db or CatalogDB(db_path)
-        self.embedder = embedder or GeminiEmbedder()
+        self.embedder = embedder or Embedder()
 
     def retrieve_candidates(self, parsed_query: Dict[str, Any], top_k: int = 10) -> List[Dict[str, Any]]:
         """

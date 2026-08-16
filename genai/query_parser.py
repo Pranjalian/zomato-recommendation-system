@@ -1,17 +1,17 @@
 import os
-import google.generativeai as genai
+from groq import Groq
 import json
 from dotenv import load_dotenv
 
 class QueryParser:
     def __init__(self):
         load_dotenv()
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
-            print("WARNING: GEMINI_API_KEY not found in environment variables.")
-        genai.configure(api_key=api_key)
-        # Using gemini-3.6-flash for faster parsing
-        self.model = genai.GenerativeModel('gemini-3.6-flash')
+            print("WARNING: GROQ_API_KEY not found in environment variables.")
+        self.client = Groq(api_key=api_key)
+        # Using a fast and capable model on Groq
+        self.model = "llama-3.1-8b-instant"
 
     def parse_query(self, query: str, context: dict = None) -> dict:
         """
@@ -32,17 +32,15 @@ class QueryParser:
         """
         
         try:
-            response = self.model.generate_content(prompt)
-            text = response.text
-            # Clean up the markdown formatting if the model wraps it in ```json
-            if text.startswith("```json"):
-                text = text[7:-3]
-            elif text.startswith("```"):
-                text = text[3:-3]
-                
+            response = self.client.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=self.model,
+                response_format={"type": "json_object"}
+            )
+            text = response.choices[0].message.content
             return json.loads(text.strip())
         except Exception as e:
-            print(f"Error parsing query with Gemini, using mock fallback: {e}")
+            print(f"Error parsing query with Groq, using mock fallback: {e}")
             return self._mock_fallback(query)
             
     def _mock_fallback(self, query: str) -> dict:

@@ -45,7 +45,7 @@ class VectorStore:
 
     def search(self, query_embedding: List[float], n_results: int = 10) -> Dict[str, Any]:
         """Searches the vector store using a query embedding."""
-        if not query_embedding:
+        if query_embedding is None or len(query_embedding) == 0:
             return {"ids": [], "metadatas": [], "distances": []}
             
         results = self.collection.query(

@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from database.catalog_db import CatalogDB
-from embeddings.embedder import GeminiEmbedder
+from embeddings.embedder import Embedder
 from embeddings.vector_store import VectorStore
 
 def main():
@@ -25,7 +25,7 @@ def main():
     
     # 2. Generate Embeddings
     print("Generating embeddings (this may take a moment)...")
-    embedder = GeminiEmbedder()
+    embedder = Embedder()
     embeddings = []
     
     for rest in restaurants:

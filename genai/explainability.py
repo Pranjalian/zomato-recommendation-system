@@ -1,21 +1,18 @@
 import os
 from typing import Dict, Any
-
-# We use the old google.generativeai for now to avoid large refactoring across the prototype,
-# but acknowledging the FutureWarning logged during testing.
-import google.generativeai as genai
-
+from groq import Groq
 from dotenv import load_dotenv
 
 class ExplainabilityEngine:
     def __init__(self):
-        # Configure Gemini if API key is present
+        # Configure Groq if API key is present
         load_dotenv()
-        api_key = os.environ.get("GEMINI_API_KEY")
+        api_key = os.environ.get("GROQ_API_KEY")
         if api_key:
-            genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel('gemini-3.6-flash')
+            self.client = Groq(api_key=api_key)
+            self.model = "llama-3.1-8b-instant"
         else:
+            self.client = None
             self.model = None
 
     def generate_explanation(
@@ -28,7 +25,7 @@ class ExplainabilityEngine:
         """
         Generates a natural language explanation for why a candidate was recommended.
         """
-        if not self.model:
+        if not self.client:
             return self._mock_fallback(candidate, parsed_query, context, user_profile)
 
         # Construct prompt
@@ -53,10 +50,13 @@ class ExplainabilityEngine:
         """
         
         try:
-            response = self.model.generate_content(prompt)
-            return response.text.strip()
+            response = self.client.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=self.model,
+            )
+            return response.choices[0].message.content.strip()
         except Exception as e:
-            print(f"Error generating explanation with Gemini: {e}")
+            print(f"Error generating explanation with Groq: {e}")
             return self._mock_fallback(candidate, parsed_query, context, user_profile)
 
     def _mock_fallback(
