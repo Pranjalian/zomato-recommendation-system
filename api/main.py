@@ -178,6 +178,26 @@ def update_profile(request: ProfileRequest):
     })
     return {"status": "success", "message": "Profile updated successfully."}
 
+@app.get("/debug")
+def debug_status(query: str = "chocolate"):
+    try:
+        emb = retrieval_engine.embedder.generate_query_embedding(query)
+        emb_summary = {"length": len(emb), "sample": emb[:5]}
+    except Exception as e:
+        emb_summary = {"error": str(e)}
+    
+    try:
+        search_res = vector_store.collection.query(query_embeddings=[emb], n_results=5)
+    except Exception as e:
+        search_res = {"error": str(e)}
+        
+    return {
+        "embedding": emb_summary,
+        "search_results": search_res,
+        "chroma_count": vector_store.collection.count(),
+        "catalog_count": len(catalog_db.restaurants) if hasattr(catalog_db, 'restaurants') else "unknown"
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
