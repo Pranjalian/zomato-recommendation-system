@@ -16,6 +16,7 @@ from genai.query_parser import QueryParser
 from genai.explainability import ExplainabilityEngine
 from engine.retrieval import RetrievalEngine
 from engine.ranking import RankingEngine
+from embeddings.vector_store import VectorStore
 from database.user_db import UserDB
 from database.catalog_db import CatalogDB
 from analytics.telemetry import TelemetryEngine
@@ -30,13 +31,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize modules
-context_engine = ContextEngine()
-query_parser = QueryParser()
-retrieval_engine = RetrievalEngine()
-ranking_engine = RankingEngine()
-explainability_engine = ExplainabilityEngine()
-
 # Use DATA_DIR from environment if available (useful for Railway volumes)
 data_dir = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.dirname(__file__)), 'database'))
 
@@ -45,6 +39,19 @@ catalog_db = CatalogDB(catalog_db_path)
 
 user_db_path = os.path.join(data_dir, 'user_profiles.json')
 user_db = UserDB(user_db_path)
+
+if os.environ.get("DATA_DIR"):
+    chroma_db_path = os.path.join(data_dir, 'chroma_db')
+else:
+    chroma_db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'chroma_db')
+vector_store = VectorStore(db_path=chroma_db_path)
+
+# Initialize modules
+context_engine = ContextEngine()
+query_parser = QueryParser()
+retrieval_engine = RetrievalEngine(vector_store=vector_store, catalog_db=catalog_db)
+ranking_engine = RankingEngine()
+explainability_engine = ExplainabilityEngine()
 
 telemetry_engine = TelemetryEngine(user_db, catalog_db)
 
