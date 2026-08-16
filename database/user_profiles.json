@@ -1,0 +1,37 @@
+{
+    "test_user_1": {
+        "user_id": "test_user_1",
+        "explicit_preferences": {
+            "allergies": [
+                "peanuts"
+            ],
+            "diet": "vegetarian"
+        },
+        "implicit_behaviors": {
+            "historical_orders": [],
+            "frequent_cuisines": []
+        }
+    },
+    "test_telemetry_user": {
+        "user_id": "test_telemetry_user",
+        "explicit_preferences": {
+            "allergies": [],
+            "diet": "none"
+        },
+        "implicit_behaviors": {
+            "historical_orders": [
+                {
+                    "restaurant_id": 1,
+                    "cuisines": [
+                        "Chinese",
+                        "Thai"
+                    ]
+                }
+            ],
+            "frequent_cuisines": [
+                "Chinese",
+                "Thai"
+            ]
+        }
+    }
+}

@@ -32,7 +32,29 @@ app.add_middleware(
 )
 
 # Use DATA_DIR from environment if available (useful for Railway volumes)
-data_dir = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.dirname(__file__)), 'database'))
+repo_db_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'database')
+repo_chroma_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'chroma_db')
+
+data_dir = os.environ.get("DATA_DIR", repo_db_dir)
+
+if os.environ.get("DATA_DIR"):
+    import shutil
+    os.makedirs(data_dir, exist_ok=True)
+    # Copy catalog db
+    catalog_dest = os.path.join(data_dir, 'zomato_catalog.db')
+    if not os.path.exists(catalog_dest) and os.path.exists(os.path.join(repo_db_dir, 'zomato_catalog.db')):
+        shutil.copy2(os.path.join(repo_db_dir, 'zomato_catalog.db'), catalog_dest)
+        
+    # Copy user db
+    user_dest = os.path.join(data_dir, 'user_profiles.json')
+    if not os.path.exists(user_dest) and os.path.exists(os.path.join(repo_db_dir, 'user_profiles.json')):
+        shutil.copy2(os.path.join(repo_db_dir, 'user_profiles.json'), user_dest)
+        
+    chroma_db_path = os.path.join(data_dir, 'chroma_db')
+    if not os.path.exists(chroma_db_path) and os.path.exists(repo_chroma_dir):
+        shutil.copytree(repo_chroma_dir, chroma_db_path)
+else:
+    chroma_db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'chroma_db')
 
 catalog_db_path = os.path.join(data_dir, 'zomato_catalog.db')
 catalog_db = CatalogDB(catalog_db_path)
@@ -40,10 +62,6 @@ catalog_db = CatalogDB(catalog_db_path)
 user_db_path = os.path.join(data_dir, 'user_profiles.json')
 user_db = UserDB(user_db_path)
 
-if os.environ.get("DATA_DIR"):
-    chroma_db_path = os.path.join(data_dir, 'chroma_db')
-else:
-    chroma_db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'chroma_db')
 vector_store = VectorStore(db_path=chroma_db_path)
 
 # Initialize modules
