@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CraveAI - Profile &amp; Preferences</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#ffb4a5",
+                        "secondary-fixed-dim": "#ffb2ba",
+                        "primary-fixed": "#ffdad3",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffe07c",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#de2656",
+                        "on-tertiary-fixed-variant": "#564500",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#cca700",
+                        "on-tertiary-fixed": "#231b00",
+                        "background": "#fcf9f8",
+                        "on-primary-fixed": "#3e0400",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-background": "#1c1b1b",
+                        "inverse-surface": "#313030",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e5e2e1",
+                        "surface": "#fcf9f8",
+                        "outline": "#916f69",
+                        "on-primary-container": "#fffbff",
+                        "primary-fixed-dim": "#ffb4a5",
+                        "on-tertiary-container": "#4d3e00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary": "#725c00",
+                        "on-primary-fixed-variant": "#8e1300",
+                        "on-secondary-container": "#fffbff",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "secondary": "#b90040",
+                        "surface-tint": "#ba1c00",
+                        "on-secondary-fixed": "#400011",
+                        "on-surface-variant": "#5c403a",
+                        "on-secondary-fixed-variant": "#910031",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-fixed": "#ffd9dc",
+                        "primary-container": "#dc3214",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e5e2e1",
+                        "primary": "#b51c00",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#e5bdb6",
+                        "tertiary-fixed-dim": "#ecc200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "2xl": "64px",
+                        "xs": "4px",
+                        "xl": "40px",
+                        "base": "4px",
+                        "container-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Montserrat"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-xl": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom toggle switch styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #b51c00; /* primary */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #b51c00; /* primary */
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* Custom range slider styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #b51c00;
+            cursor: pointer;
+            margin-top: -10px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+            box-shadow: 0px 4px 10px rgba(181, 28, 0, 0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e5e2e1;
+            border-radius: 2px;
+        }
+        
+        /* Glassmorphism utilities */
+        .glass-card {
+            background: rgba(252, 249, 248, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 189, 182, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-2xl md:pb-0 flex flex-col md:flex-row antialiased">
+<!-- TopAppBar (Web & Mobile) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm md:hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" data-icon="sparkles" data-weight="fill" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">CraveAI</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up, high-quality portrait of a sophisticated urban professional smiling subtly. The lighting is warm and flattering, consistent with a premium lifestyle brand aesthetic, featuring soft shadows and a crisp, light background to complement a modern app UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzVJeCF2o3wFneb1ZbVC-lXxpdyVfTGKqUWZJESD6CGiswuPcDwn1OpC7kpgvg4tNYYT17zxqLfF1hBnQCp7BsRzEa926P_gS2neinXb5oeGVcqCzN7JOEqeJOlZKD840IHu1vq0-zHtxoqZ00ecg2s9wPMhOvmaej9XtPlFWWZwvW5Z2TgeBCnMMjZNyaXHyHoYu4LrYliTZDqlpKWUJRhT1xmCMzSoz6V2WC3HWynF05QkxZdG0r"/>
+</div>
+</header>
+<!-- SideNav (Desktop) -->
+<aside class="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-surface border-r border-outline-variant/20 z-40 pt-16 pb-8">
+<div class="px-lg pb-xl border-b border-outline-variant/20 flex items-center gap-2 mt-4">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="sparkles" data-weight="fill" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<span class="text-headline-lg font-headline-lg font-bold text-primary">CraveAI</span>
+</div>
+<nav class="flex-1 py-lg flex flex-col gap-sm px-4">
+<a class="flex items-center gap-md px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-md font-label-md">Concierge</span>
+</a>
+<a class="flex items-center gap-md px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="text-label-md font-label-md">Discovery</span>
+</a>
+<a class="flex items-center gap-md px-4 py-3 rounded-xl bg-primary-fixed/20 text-primary font-bold" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="person">person</span>
+<span class="text-label-md font-label-md">Profile</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-20 px-container-margin md:ml-64 md:pt-xl max-w-4xl mx-auto w-full">
+<!-- Profile Header -->
+<div class="flex flex-col md:flex-row items-center md:items-start gap-lg mb-xl mt-4 md:mt-0">
+<div class="relative group cursor-pointer">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-surface shadow-[0px_4px_20px_rgba(181,28,0,0.15)] ring-2 ring-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up, high-quality portrait of a sophisticated urban professional smiling subtly. The lighting is warm and flattering, consistent with a premium lifestyle brand aesthetic, featuring soft shadows and a crisp, light background to complement a modern app UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlnwOZ40Pqr1Taqlax6usOIyvrsw70xNEInG4DX6xqjXDcftf8vjcJs5AemPiRYG_YUg6B1kPxzDLb-AXZmubG4moSNV6_UbIawwaS9CdiGDFv3UlYyssSM1R-YvOQYxTJlAYDQzVnpsh2tL3ZoDGF6JK0Hn6Xa2vQgVzW1yKlLvxBpIar1N7NrgWSCLkI8xehutupasv25IrRRaHNVoPl9fNQfMFKzDgpp5pPl9G-r331Ltv2huVf"/>
+</div>
+<div class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white" data-icon="edit">edit</span>
+</div>
+</div>
+<div class="text-center md:text-left flex-1">
+<h1 class="text-headline-xl font-headline-xl md:text-headline-xl text-on-background mb-xs">Jordan Lee</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-md">Flavor Explorer • Joined 2023</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-2">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary-container/20 text-on-tertiary-container text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="local_fire_department">local_fire_department</span>
+                        Spicy Lover
+                    </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified">verified</span>
+                        Verified Foodie
+                    </span>
+</div>
+</div>
+<button class="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary text-label-md font-label-md shadow-[0px_4px_15px_rgba(181,28,0,0.2)] hover:bg-primary-container transition-all hover:-translate-y-0.5">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                Save Changes
+            </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg mb-2xl">
+<!-- Left Column: Toggles & Chips -->
+<div class="lg:col-span-7 space-y-lg">
+<!-- Dietary Preferences -->
+<section class="glass-card rounded-2xl p-lg shadow-sm">
+<div class="flex items-center gap-2 mb-md border-b border-outline-variant/30 pb-sm">
+<span class="material-symbols-outlined text-primary bg-primary-fixed/30 p-1.5 rounded-lg" data-icon="spa">spa</span>
+<h2 class="text-headline-md font-headline-md text-on-background">Dietary Preferences</h2>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-lg">Tell the Concierge how you eat to get perfectly tailored recommendations.</p>
+<div class="space-y-md">
+<!-- Toggle Item -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-lowest transition-colors border border-transparent hover:border-outline-variant/30">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface text-base">Vegetarian</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">No meat or poultry</p>
+</div>
+<label class="flex items-center cursor-pointer relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label block bg-surface-variant w-14 h-8 rounded-full border-2 border-outline-variant/50 transition-colors duration-300 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-outline-variant/30 after:rounded-full after:h-6 after:w-6 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Toggle Item -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-lowest transition-colors border border-transparent hover:border-outline-variant/30">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface text-base">Vegan</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Strictly plant-based</p>
+</div>
+<label class="flex items-center cursor-pointer relative">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label block bg-surface-variant w-14 h-8 rounded-full border-2 border-outline-variant/50 transition-colors duration-300 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-outline-variant/30 after:rounded-full after:h-6 after:w-6 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Toggle Item -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-lowest transition-colors border border-transparent hover:border-outline-variant/30">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface text-base">Keto</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">High fat, low carb</p>
+</div>
+<label class="flex items-center cursor-pointer relative">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label block bg-surface-variant w-14 h-8 rounded-full border-2 border-outline-variant/50 transition-colors duration-300 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-outline-variant/30 after:rounded-full after:h-6 after:w-6 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+<!-- Toggle Item -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-lowest transition-colors border border-transparent hover:border-outline-variant/30">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface text-base">Halal</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Prepared according to Islamic law</p>
+</div>
+<label class="flex items-center cursor-pointer relative">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label block bg-surface-variant w-14 h-8 rounded-full border-2 border-outline-variant/50 transition-colors duration-300 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-outline-variant/30 after:rounded-full after:h-6 after:w-6 after:transition-all after:shadow-sm"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Allergies (Multi-select Chips) -->
+<section class="glass-card rounded-2xl p-lg shadow-sm">
+<div class="flex items-center gap-2 mb-md border-b border-outline-variant/30 pb-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed/50 p-1.5 rounded-lg" data-icon="medical_information">medical_information</span>
+<h2 class="text-headline-md font-headline-md text-on-background">Allergies &amp; Intolerances</h2>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-md">Select ingredients you need to strictly avoid.</p>
+<div class="flex flex-wrap gap-3">
+<!-- Active Chip -->
+<button class="px-4 py-2 rounded-xl bg-primary text-on-primary text-label-md font-label-md shadow-sm flex items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+                            Peanuts
+                        </button>
+<!-- Inactive Chip -->
+<button class="px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface-variant border border-outline-variant text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+                            Gluten-Free
+                        </button>
+<button class="px-4 py-2 rounded-xl bg-primary text-on-primary text-label-md font-label-md shadow-sm flex items-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+                            Shellfish
+                        </button>
+<button class="px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface-variant border border-outline-variant text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+                            Dairy
+                        </button>
+<button class="px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface-variant border border-outline-variant text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+                            Tree Nuts
+                        </button>
+<button class="px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface-variant border border-outline-variant text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+                            Soy
+                        </button>
+</div>
+</section>
+</div>
+<!-- Right Column: Limits & Scales -->
+<div class="lg:col-span-5 space-y-lg">
+<section class="bg-surface-container-low rounded-2xl p-lg border border-outline-variant/30 shadow-[0px_4px_20px_rgba(0,0,0,0.02)] relative overflow-hidden">
+<!-- Subtle AI Sparkle Background -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary-fixed/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center gap-2 mb-md border-b border-outline-variant/30 pb-sm relative z-10">
+<span class="material-symbols-outlined text-primary bg-primary-fixed/30 p-1.5 rounded-lg" data-icon="tune">tune</span>
+<h2 class="text-headline-md font-headline-md text-on-background">My Limits</h2>
+</div>
+<!-- Max Radius Slider -->
+<div class="mb-xl relative z-10">
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="text-label-md font-label-md text-on-surface block mb-1 text-base" for="radius-slider">Max Delivery Radius</label>
+<span class="text-label-sm font-label-sm text-on-surface-variant">How far should we look?</span>
+</div>
+<span class="text-headline-md font-headline-md text-primary font-bold">5 km</span>
+</div>
+<input class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" id="radius-slider" max="20" min="1" type="range" value="5"/>
+<div class="flex justify-between mt-2 text-label-sm font-label-sm text-outline">
+<span>1 km</span>
+<span>20 km</span>
+</div>
+</div>
+<!-- Budget Range -->
+<div class="relative z-10">
+<div class="mb-4">
+<label class="text-label-md font-label-md text-on-surface block mb-1 text-base">Preferred Budget</label>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Per meal average</span>
+</div>
+<div class="flex bg-surface-container-highest rounded-xl p-1 shadow-inner">
+<button class="flex-1 py-2 text-center rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-label-md font-label-md">
+                                $
+                            </button>
+<button class="flex-1 py-2 text-center rounded-lg bg-surface shadow-sm text-primary font-bold border border-outline-variant/20 text-label-md font-label-md">
+                                $$
+                            </button>
+<button class="flex-1 py-2 text-center rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-label-md font-label-md">
+                                $$$
+                            </button>
+<button class="flex-1 py-2 text-center rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-label-md font-label-md">
+                                $$$$
+                            </button>
+</div>
+</div>
+</section>
+<!-- Save Action (Mobile) -->
+<div class="md:hidden mt-lg">
+<button class="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-on-primary text-label-md font-label-md shadow-[0px_4px_15px_rgba(181,28,0,0.2)] active:scale-95 transition-transform text-lg">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                        Save Preferences
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-xl border-t border-outline-variant/20 shadow-[0px_-4px_20px_rgba(181,28,0,0.08)] rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors w-20" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-label-sm font-label-sm">Concierge</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors w-20" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="restaurant">restaurant</span>
+<span class="text-label-sm font-label-sm">Discovery</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-primary-fixed/20 rounded-full px-4 py-1 scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1 fill-icon" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm font-bold">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple interactions for range slider value update
+        const radiusSlider = document.getElementById('radius-slider');
+        const radiusDisplay = radiusSlider.parentElement.querySelector('.text-headline-md');
+        
+        radiusSlider.addEventListener('input', (e) => {
+            radiusDisplay.textContent = `${e.target.value} km`;
+        });
+    </script>
+</body></html>
