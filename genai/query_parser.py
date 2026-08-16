@@ -23,7 +23,7 @@ class QueryParser:
         - "semantic_intent": The core food or craving semantic meaning (e.g., "comforting hot food", "spicy meal").
         - "cuisines": A list of specific cuisines mentioned (e.g., ["Italian", "Chinese"]). Empty list if none.
         - "diet": Any mentioned dietary restrictions (e.g., "vegan", "vegetarian", "gluten-free"). Empty string if none.
-        - "is_food_related": Boolean indicating if the query is actually about ordering food.
+        - "is_food_related": Boolean indicating if the query is actually about ordering food, drinks, desserts, or snacks. VERY IMPORTANT: queries for ingredients like "chocolate", "cheese", or general cravings ARE food related (True). Only set this to False for completely unrelated queries like "shoes", "cars", or "hello".
         
         Context: {json.dumps(context or {})}
         User Query: "{query}"
